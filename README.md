@@ -1,14 +1,19 @@
 # NAME
 
-Awesome - It's new $module
-
-# SYNOPSIS
-
-    use Awesome;
+Awesome - Awesome language implementation in Perl
 
 # DESCRIPTION
 
-Awesome is ...
+Awesome is a programming languages introduced in the book
+"Create Your Own Programming Lancuage". Original Awesome
+implementation is written in Ruby.
+
+Purpose of thig module is deep understaing of
+creating programming language.
+
+# SEE ALSO
+
+Official Homepage: [http://createyourproglang.com/](http://createyourproglang.com/)
 
 # LICENSE
 
