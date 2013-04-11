@@ -21,16 +21,17 @@ use Awesome::Node;
 %token CONSTANT
 %token INDENT DEDENT
 
-%left  '.'
-%right '!'
-%left  '*' '/'
-%left  '+' '-'
-%left  '>' '>=' '<' '<='
-%left  '==' '!='
-%left  '&&'
-%left  '||'
-%right '='
+# "," is lowest precedence, "." is highest.
 %left  ','
+%right '='
+%left  '||'
+%left  '&&'
+%left  '==' '!='
+%left  '>' '>=' '<' '<='
+%left  '+' '-'
+%left  '*' '/'
+%right '!'
+%left  '.'
 
 %%
 
