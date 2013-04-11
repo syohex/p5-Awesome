@@ -48,17 +48,17 @@ use Awesome::Node::IfNode;
 
 # All parsing will end in this rule, being the trunk of the AST
 Root:
-    /* nothing */                     { Awesome::Node::Nodes->new([]) }
+    /* nothing */                     { Awesome::Node::Nodes->new() }
   | Expressions                       { $_[1] }
   ;
 
 # Any list of expressions, class or method body, separated by line breaks
 Expressions:
-    Expression                        { Awesome::Node::Nodes->new([ $_[1] ]) }
+    Expression                        { Awesome::Node::Nodes->new($_[1]) }
   | Expressions Terminator Expression { $_[1]->push_node($_[3]) }
   # To ignore trailing line breaks
   | Expressions Terminator            { $_[1] }
-  | Terminator                        { Awesome::Node::Nodes->new([]) }
+  | Terminator                        { Awesome::Node::Nodes->new() }
   ;
 
 # All types of expressions in our language
@@ -125,13 +125,13 @@ Operator:
   ;
 
 Constant:
-    CONSTANT                          { AweSome::Node::GetConstantNode->new($_[1]) }
+    CONSTANT                          { Awesome::Node::GetConstantNode->new($_[1]) }
   ;
 
 # Assignment to a variable or constant
 Assign:
-    IDENTIFIER '=' Expression         { AweSome::Node::SetLocalNode->new($_[1], $_[3]) }
-  | CONSTANT '=' Expression           { AweSome::Node::SetConstantNode->new($_[1], $_[3])}
+    IDENTIFIER '=' Expression         { Awesome::Node::SetLocalNode->new($_[1], $_[3]) }
+  | CONSTANT '=' Expression           { Awesome::Node::SetConstantNode->new($_[1], $_[3])}
   ;
 
 # Method definition
@@ -159,7 +159,7 @@ If:
 
 # A block of indented code. You see here that all the hard work was done by the lexer
 Block:
-    INDENT Expression DEDENT          { $_[2] }
+    INDENT Expressions DEDENT         { $_[2] }
   # If you don't like indentation you could replace the previous rule with the
   # following one to separate blocks w/ curly brackets. You'll also need to remove the
   # indentation magic section in the lexer
