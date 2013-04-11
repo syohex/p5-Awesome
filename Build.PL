@@ -65,6 +65,9 @@ my $build = My::Builder->new(
         'Module::Build' => '0.38',
         'Parse::Yapp'   => '1.05',
     },
+    requires => {
+        'parent'        => 0,
+    },
 
     no_index    => { 'directory' => [ 'inc' ] },
     name        => 'Awesome',
