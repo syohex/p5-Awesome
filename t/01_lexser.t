@@ -45,6 +45,8 @@ if 1:
     print "..."
     if false:
       pass
+    else:
+      pass
     print "done!"
   2
 
@@ -59,6 +61,10 @@ CODE
           ["INDENT", 4],
             ["IDENTIFIER", "print"], ["STRING", "..."], ["NEWLINE", "\n"],
             ["IF", "if"], ["FALSE", "false"],
+            ["INDENT", 6],
+              ["IDENTIFIER", "pass"],
+            ["DEDENT", 4], ["NEWLINE", "\n"],
+            ["ELSE", "else"],
             ["INDENT", 6],
               ["IDENTIFIER", "pass"],
             ["DEDENT", 4], ["NEWLINE", "\n"],
