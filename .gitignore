@@ -9,4 +9,5 @@
 /blib/
 /MYMETA.json
 /MYMETA.yml
+/MANIFEST.bak
 /lib/Awesome/Parser.pm
