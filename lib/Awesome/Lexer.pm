@@ -2,7 +2,7 @@ package Awesome::Lexer;
 use strict;
 use warnings;
 
-my @KEYWORDS = qw(def class if while true false nil);
+my @KEYWORDS = qw(def class if else while true false nil);
 
 sub new {
     my ($class) = @_;
