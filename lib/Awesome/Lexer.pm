@@ -2,9 +2,12 @@ package Awesome::Lexer;
 use strict;
 use warnings;
 
-use Moo;
-
 my @KEYWORDS = qw(def class if while true false nil);
+
+sub new {
+    my ($class) = @_;
+    bless {}, $class;
+}
 
 sub tokenize {
     my ($self, $code) = @_;
