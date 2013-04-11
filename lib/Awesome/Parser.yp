@@ -5,7 +5,18 @@ use warnings;
 use Data::Dumper ();
 
 use Awesome::Lexer;
-use Awesome::Node;
+use Awesome::Node::Nodes;
+use Awesome::Node::NumberNode;
+use Awesome::Node::StringNode;
+use Awesome::Node::TrueNode;
+use Awesome::Node::FalseNode;
+use Awesome::Node::NilNode;
+use Awesome::Node::CallNode;
+use Awesome::Node::DefNode;
+use Awesome::Node::SetLocalNode;
+use Awesome::Node::SetConstantNode;
+use Awesome::Node::ClassNode;
+use Awesome::Node::IfNode;
 
 %}
 
@@ -43,8 +54,8 @@ Root:
 
 # Any list of expressions, class or method body, separated by line breaks
 Expressions:
-    Expression                        { Awesome::Node::Nodes->new([@_]) }
-  | Expressions Terminator Expression { [ push @{$_[1]}, $_[3] ] }
+    Expression                        { Awesome::Node::Nodes->new([ $_[1] ]) }
+  | Expressions Terminator Expression { $_[1]->push_node($_[3]) }
   # To ignore trailing line breaks
   | Expressions Terminator            { $_[1] }
   | Terminator                        { Awesome::Node::Nodes->new([]) }
@@ -72,7 +83,7 @@ Terminator:
 # All hard-coded values
 Literal:
     NUMBER                            { Awesome::Node::NumberNode->new($_[1]) }
-  | STRING                            { Awesome::Node::StringNode->new($_[0]) }
+  | STRING                            { Awesome::Node::StringNode->new($_[1]) }
   | TRUE                              { Awesome::Node::TrueNode->new }
   | FALSE                             { Awesome::Node::FalseNode->new }
   | NIL                               { Awesome::Node::NilNode->new }
@@ -93,8 +104,8 @@ Call:
 
 ArgList:
     /* nothing */                     { [] }
-  | Expression                        { [ @_ ] }
-  | ArgList ',' Expression            { [ push @{$_[1]}, $_[3] ] }
+  | Expression                        { [ $_[1] ] }
+  | ArgList ',' Expression            { [ @{$_[1]}, $_[3] ] }
   ;
 
 Operator:
@@ -132,8 +143,8 @@ Def:
 
 ParamList:
     /* nothing */                     { [] }
-  | IDENTIFIER                        { [@_] }
-  | ParamList ',' IDENTIFIER          { [ push @{$_[1]}, $_[3] ] }
+  | IDENTIFIER                        { [ $_[1] ] }
+  | ParamList ',' IDENTIFIER          { [ @{$_[1]}, $_[3] ] }
   ;
 
 # Class definition
@@ -173,13 +184,12 @@ sub yylex {
 
 sub parse {
     my ($self, $code, $show_debug) = @_;
+    $show_debug = defined $show_debug ? $show_debug : 0;
     my @tokens = Awesome::Lexer->new->tokenize($code);
 
-    Data::Dumper::Dump(\@tokens) if defined $show_debug;
+    warn Data::Dumper->Dump(\@tokens) if $show_debug;
 
     $self->YYData->{INPUT} = \@tokens;
 
-    # YYParse return ArrayRef
-    # Its first element is parser object, Second element is data
-    return @{$self->YYParse( yylex => \&yylex, yyerror => \&yyerror )}[1];
+    return $self->YYParse( yylex => \&yylex, yyerror => \&yyerror );
 }
