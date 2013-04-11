@@ -18,10 +18,10 @@ Awesome - Awesome language implementation in Perl
 =head1 DESCRIPTION
 
 Awesome is a programming languages introduced in the book
-"Create Your Own Programming Lancuage". Original Awesome
+"Create Your Own Programming Language". Original Awesome
 implementation is written in Ruby.
 
-Purpose of thig module is deep understaing of
+Purpose of this module is deep understanding of
 creating programming language.
 
 =head1 SEE ALSO
