@@ -5,18 +5,19 @@ use warnings;
 use Data::Dumper ();
 
 use Awesome::Lexer;
+use Awesome::Node::CallNode;
+use Awesome::Node::ClassNode;
+use Awesome::Node::DefNode;
+use Awesome::Node::FalseNode;
+use Awesome::Node::GetConstantNode;
+use Awesome::Node::IfNode;
+use Awesome::Node::NilNode;
 use Awesome::Node::Nodes;
 use Awesome::Node::NumberNode;
+use Awesome::Node::SetConstantNode;
+use Awesome::Node::SetLocalNode;
 use Awesome::Node::StringNode;
 use Awesome::Node::TrueNode;
-use Awesome::Node::FalseNode;
-use Awesome::Node::NilNode;
-use Awesome::Node::CallNode;
-use Awesome::Node::DefNode;
-use Awesome::Node::SetLocalNode;
-use Awesome::Node::SetConstantNode;
-use Awesome::Node::ClassNode;
-use Awesome::Node::IfNode;
 use Awesome::Node::WhileNode;
 
 %}
