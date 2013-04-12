@@ -17,11 +17,13 @@ use Awesome::Node::SetLocalNode;
 use Awesome::Node::SetConstantNode;
 use Awesome::Node::ClassNode;
 use Awesome::Node::IfNode;
+use Awesome::Node::WhileNode;
 
 %}
 
 # Declare tokens produced by the lexer
 %token IF ELSE
+%token WHILE
 %token DEF
 %token CLASS
 %token NEWLINE
@@ -71,6 +73,7 @@ Expression:
   | Def
   | Class
   | If
+  | While
   | '(' Expression ')'                { $_[2] }
   ;
 
@@ -156,6 +159,11 @@ Class:
 # if block
 If:
     IF Expression Block               { Awesome::Node::IfNode->new($_[2], $_[3]) }
+  ;
+
+# while block
+While:
+    WHILE Expression Block            { Awesome::Node::WhileNode->new($_[2], $_[3]) }
   ;
 
 # A block of indented code. You see here that all the hard work was done by the lexer
