@@ -110,7 +110,8 @@ ArgList:
 
 Operator:
 # Binary operators
-    Expression '||' Expression        { Awesome::Node::CallNode->new($_[1], $_[2], [$_[3]]) }
+    '!' Expression                    { Awesome::Node::CallNode->new($_[2], $_[1], []) }
+  | Expression '||' Expression        { Awesome::Node::CallNode->new($_[1], $_[2], [$_[3]]) }
   | Expression '&&' Expression        { Awesome::Node::CallNode->new($_[1], $_[2], [$_[3]]) }
   | Expression '==' Expression        { Awesome::Node::CallNode->new($_[1], $_[2], [$_[3]]) }
   | Expression '!=' Expression        { Awesome::Node::CallNode->new($_[1], $_[2], [$_[3]]) }
